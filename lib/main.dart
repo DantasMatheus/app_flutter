@@ -19,18 +19,40 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
+          leading: Container(),
           backgroundColor: primaryColor,
           title: Text('Tarefas', style: TextStyle(color: Colors.white)),
         ),
         body: ListView(
           children: [
-            Task('Aprender Flutter'),
-            Task('Aprender Dart'),
-            Task('Desenvolver App'),
-            Task('Alimentar o cachorro'),
-            Task('Aprender Estrutura de Dados'),
-            Task('Meditar'),
-            Task('Fazer Café'),
+            Task(
+              'Aprender Flutter',
+              'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large',
+            ),
+            Task(
+              'Aprender Dart',
+              'https://m.media-amazon.com/images/I/51z07YgHRBL.jpg',
+            ),
+            Task(
+              'Desenvolver App',
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxna5cYeZyX22C7YSdVpICKlblUQ6xgewGBA&s',
+            ),
+            Task(
+              'Alimentar o cachorro',
+              'https://static.vecteezy.com/system/resources/previews/005/293/990/non_2x/pet-food-logo-with-dog-icon-suitable-for-pet-shop-and-vet-free-vector.jpg',
+            ),
+            Task(
+              'Aprender Estrutura de Dados',
+              'https://media.licdn.com/dms/image/D5612AQG1pE_H-m9TgQ/article-cover_image-shrink_720_1280/0/1677414547742?e=2147483647&v=beta&t=TkQybfOZuzU9MyNSYbpqUg0eyEJoALfwEyTpwmnJZgg',
+            ),
+            Task(
+              'Meditar',
+              'https://manhattanmentalhealthcounseling.com/wp-content/uploads/2019/06/Top-5-Scientific-Findings-on-MeditationMindfulness-881x710.jpeg',
+            ),
+            Task(
+              'Fazer Café',
+              'https://cdn.pixabay.com/photo/2022/03/09/05/05/coffee-7057030_1280.png',
+            ),
           ],
         ),
 
@@ -42,7 +64,8 @@ class MyApp extends StatelessWidget {
 
 class Task extends StatefulWidget {
   final String nome;
-  const Task(this.nome, {super.key});
+  final String foto;
+  const Task(this.nome, this.foto, {super.key});
 
   @override
   State<Task> createState() => _TaskState();
@@ -65,7 +88,13 @@ class _TaskState extends State<Task> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(color: Colors.black26, width: 72, height: 100),
+                    Container(
+                      color: Colors.black26,
+                      width: 72,
+                      height: 100,
+                      child: Image.network(widget.foto, fit: BoxFit.cover),
+                    ),
+
                     SizedBox(
                       width: 200,
                       child: Text(
@@ -76,16 +105,32 @@ class _TaskState extends State<Task> {
                         ),
                       ),
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          nivel++;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
+                    SizedBox(
+                      height: 52,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            nivel++;
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(Icons.arrow_drop_up, color: Colors.white),
+                            Text(
+                              'Lvl Up',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      child: Icon(Icons.arrow_drop_up, color: Colors.white),
                     ),
                   ],
                 ),
@@ -98,7 +143,8 @@ class _TaskState extends State<Task> {
                     child: SizedBox(
                       width: 200,
                       child: LinearProgressIndicator(
-                        color: Colors.grey,
+                        backgroundColor: Colors.grey,
+                        color: Colors.white,
                         value: nivel / 10,
                       ),
                     ),
