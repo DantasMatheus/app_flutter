@@ -1,3 +1,4 @@
+import 'package:app_flutter/difficulty.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -151,50 +152,7 @@ class _TaskState extends State<Task> {
                             ),
                           ),
                         ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              size: 15,
-                              color:
-                                  widget.dificuldade >= 1
-                                      ? Colors.blue
-                                      : Colors.blue[100],
-                            ),
-                            Icon(
-                              Icons.star,
-                              size: 15,
-                              color:
-                                  widget.dificuldade >= 2
-                                      ? Colors.blue
-                                      : Colors.blue[100],
-                            ),
-                            Icon(
-                              Icons.star,
-                              size: 15,
-                              color:
-                                  widget.dificuldade >= 3
-                                      ? Colors.blue
-                                      : Colors.blue[100],
-                            ),
-                            Icon(
-                              Icons.star,
-                              size: 15,
-                              color:
-                                  widget.dificuldade >= 4
-                                      ? Colors.blue
-                                      : Colors.blue[100],
-                            ),
-                            Icon(
-                              Icons.star,
-                              size: 15,
-                              color:
-                                  widget.dificuldade >= 5
-                                      ? Colors.blue
-                                      : Colors.blue[100],
-                            ),
-                          ],
-                        ),
+                        Difficulty(difficultyLevel: widget.dificuldade),
                       ],
                     ),
                     Container(
