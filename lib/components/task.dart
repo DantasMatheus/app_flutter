@@ -1,4 +1,4 @@
-import 'package:app_flutter/difficulty.dart';
+import 'package:app_flutter/components/difficulty.dart';
 import 'package:flutter/material.dart';
 
 class Task extends StatefulWidget {
@@ -55,7 +55,7 @@ class _TaskState extends State<Task> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
+                        SizedBox(
                           width: 200,
                           child: Text(
                             widget.nome,
@@ -68,7 +68,7 @@ class _TaskState extends State<Task> {
                         Difficulty(difficultyLevel: widget.dificuldade),
                       ],
                     ),
-                    Container(
+                    SizedBox(
                       height: 52,
                       child: ElevatedButton(
                         onPressed: () {

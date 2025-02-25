@@ -1,14 +1,14 @@
-import 'package:app_flutter/task.dart';
+import 'package:app_flutter/components/task.dart';
 import 'package:flutter/material.dart';
 
-class inicialScreen extends StatefulWidget {
-  const inicialScreen({super.key});
+class InicialScreen extends StatefulWidget {
+  const InicialScreen({super.key});
 
   @override
-  State<inicialScreen> createState() => _inicialScreenState();
+  State<InicialScreen> createState() => _InicialScreenState();
 }
 
-class _inicialScreenState extends State<inicialScreen> {
+class _InicialScreenState extends State<InicialScreen> {
   bool opacidade = true;
   @override
   Widget build(BuildContext context) {
