@@ -17,6 +17,7 @@ class _TaskState extends State<Task> {
   int maestria = 0;
 
   List<Color> colors = [
+    Colors.blueGrey,
     Colors.blue,
     Colors.purple,
     Colors.brown,
@@ -83,6 +84,7 @@ class _TaskState extends State<Task> {
                       child: ElevatedButton(
                         onPressed: () {
                           setState(() {
+                            nivel++;
                             double restartNivel =
                                 (nivel / widget.dificuldade) / 10;
                             bool nivelComplete = restartNivel > 1;
@@ -90,7 +92,6 @@ class _TaskState extends State<Task> {
                               maestria++;
                               nivel = 1;
                             }
-                            nivel++;
                           });
                         },
                         style: ElevatedButton.styleFrom(
