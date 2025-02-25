@@ -13,7 +13,17 @@ class Task extends StatefulWidget {
 }
 
 class _TaskState extends State<Task> {
-  int nivel = 0;
+  int nivel = 1;
+  int maestria = 0;
+
+  List<Color> colors = [
+    Colors.blue,
+    Colors.purple,
+    Colors.brown,
+    Colors.black,
+    Colors.red,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,7 +33,7 @@ class _TaskState extends State<Task> {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
-              color: Colors.blue,
+              color: colors[maestria],
             ),
             height: 140,
           ),
@@ -73,6 +83,13 @@ class _TaskState extends State<Task> {
                       child: ElevatedButton(
                         onPressed: () {
                           setState(() {
+                            double restartNivel =
+                                (nivel / widget.dificuldade) / 10;
+                            bool nivelComplete = restartNivel > 1;
+                            if (nivelComplete && maestria < colors.length - 1) {
+                              maestria++;
+                              nivel = 1;
+                            }
                             nivel++;
                           });
                         },

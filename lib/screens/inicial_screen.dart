@@ -14,7 +14,7 @@ class _InicialScreenState extends State<InicialScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Container(),
+        leading: Icon(Icons.add_task, color: Colors.white),
         backgroundColor: Colors.blue,
         title: Text('Tarefas', style: TextStyle(color: Colors.white)),
       ),
