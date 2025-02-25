@@ -29,7 +29,7 @@ class _FormScreenState extends State<FormScreen> {
                   204,
                   203,
                   203,
-                ).withOpacity(0.5),
+                ).withValues(alpha: 0.5),
                 spreadRadius: 10,
                 blurRadius: 7,
                 offset: Offset(1.0, 0.5),
