@@ -97,14 +97,7 @@ class _FormScreenState extends State<FormScreen> {
                   child: Image.network(imageController.text, fit: BoxFit.cover),
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  print(nameController.text);
-                  print(int.parse(difficultyController.text));
-                  print(imageController.text);
-                },
-                child: Text('Adicionar!'),
-              ),
+              ElevatedButton(onPressed: () {}, child: Text('Adicionar!')),
             ],
           ),
         ),
