@@ -26,21 +26,11 @@ class _FormScreenState extends State<FormScreen> {
           decoration: BoxDecoration(
             color: Colors.black12,
             borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: const Color.fromARGB(
-                  255,
-                  204,
-                  203,
-                  203,
-                ).withValues(alpha: 0.5),
-                spreadRadius: 10,
-                blurRadius: 7,
-                offset: Offset(1.0, 0.5),
-              ),
-            ],
+            border: Border.all(color: Colors.grey, width: 2.0),
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -94,7 +84,17 @@ class _FormScreenState extends State<FormScreen> {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.network(imageController.text, fit: BoxFit.cover),
+                  child: Image.network(
+                    imageController.text,
+                    errorBuilder: (
+                      BuildContext context,
+                      Object exception,
+                      StackTrace? stackTrace,
+                    ) {
+                      return Image.asset('assets/images/nophoto.png');
+                    },
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               ElevatedButton(onPressed: () {}, child: Text('Adicionar!')),
