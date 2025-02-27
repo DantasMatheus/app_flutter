@@ -129,7 +129,11 @@ class _FormScreenState extends State<FormScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Salvando nova Tarefa')),
+                        );
+                      }
                     },
                     child: Text('Adicionar!'),
                   ),
