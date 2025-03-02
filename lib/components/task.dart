@@ -162,15 +162,15 @@ _maestryMessage(BuildContext context) {
         clipBehavior: Clip.none,
         children: [
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(8),
             height: 80,
             decoration: const BoxDecoration(
-              color: Color.fromARGB(180, 184, 165, 32),
+              color: Color.fromARGB(255, 184, 134, 11),
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             child: Row(
               children: [
-                const Icon(Icons.cake_outlined, color: Colors.white, size: 40),
+                const Icon(Icons.celebration, color: Colors.white, size: 40),
                 const SizedBox(width: 48),
                 Expanded(
                   child: Column(
@@ -189,7 +189,6 @@ _maestryMessage(BuildContext context) {
           ),
         ],
       ),
-      behavior: SnackBarBehavior.floating,
       backgroundColor: Colors.transparent,
       elevation: 0,
     ),
