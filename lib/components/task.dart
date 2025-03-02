@@ -88,7 +88,9 @@ class _TaskState extends State<Task> {
                             nivel++;
                             double restartNivel =
                                 (nivel / widget.dificuldade) / 10;
+
                             bool nivelComplete = restartNivel > 1;
+
                             if (nivelComplete && maestria < colors.length - 1) {
                               maestria++;
                               nivel = 1;
