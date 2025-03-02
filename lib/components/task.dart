@@ -17,12 +17,13 @@ class _TaskState extends State<Task> {
   int maestria = 0;
 
   List<Color> colors = [
-    Colors.blueGrey,
+    Color.fromARGB(255, 105, 105, 105),
     Colors.blue,
     Colors.purple,
     Colors.brown,
     Colors.black,
-    Colors.red,
+    Color.fromARGB(255, 155, 17, 30),
+    Color.fromARGB(255, 184, 134, 11),
   ];
 
   @override
@@ -91,6 +92,10 @@ class _TaskState extends State<Task> {
                             if (nivelComplete && maestria < colors.length - 1) {
                               maestria++;
                               nivel = 1;
+                            } else if (nivelComplete &&
+                                maestria == colors.length - 1) {
+                              nivel = 200; //error 200
+                              _maestryMessage(context);
                             }
                           });
                         },
@@ -136,7 +141,7 @@ class _TaskState extends State<Task> {
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: Text(
-                      'Nível $nivel',
+                      nivel == 200 ? 'Maestria Completa' : 'Nível $nivel',
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
@@ -148,4 +153,45 @@ class _TaskState extends State<Task> {
       ),
     );
   }
+}
+
+_maestryMessage(BuildContext context) {
+  return ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            height: 80,
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(180, 184, 165, 32),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            child: Row(
+              children: [
+                const Icon(Icons.cake_outlined, color: Colors.white, size: 40),
+                const SizedBox(width: 48),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        "Maestria Máxima Alcançada",
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    ),
+  );
 }
