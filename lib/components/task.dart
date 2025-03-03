@@ -15,6 +15,7 @@ class Task extends StatefulWidget {
 class _TaskState extends State<Task> {
   int nivel = 1;
   int maestria = 0;
+  bool levelMax = false;
 
   List<Color> colors = [
     Color.fromARGB(255, 105, 105, 105),
@@ -86,18 +87,14 @@ class _TaskState extends State<Task> {
                         onPressed: () {
                           setState(() {
                             nivel++;
-                            double restartNivel =
-                                (nivel / widget.dificuldade) / 10;
-
-                            bool nivelComplete = restartNivel > 1;
-
-                            if (nivelComplete && maestria < colors.length - 1) {
-                              maestria++;
-                              nivel = 1;
-                            } else if (nivelComplete &&
-                                maestria == colors.length - 1) {
-                              nivel = 200; //error 200
-                              _maestryMessage(context);
+                            if ((nivel / widget.dificuldade) / 10 > 1) {
+                              if (maestria < colors.length - 1) {
+                                maestria++;
+                                nivel = 1;
+                              } else {
+                                levelMax = true;
+                                _maestryMessage(context);
+                              }
                             }
                           });
                         },
@@ -143,7 +140,7 @@ class _TaskState extends State<Task> {
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: Text(
-                      nivel == 200 ? 'Maestria Completa' : 'Nível $nivel',
+                      levelMax == true ? 'Maestria Completa' : 'Nível $nivel',
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
