@@ -1,3 +1,4 @@
+import 'package:app_flutter/data/task_inherited.dart';
 import 'package:app_flutter/screens/inicial_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.white),
         ),
       ),
-      home: InicialScreen(),
+      home: TaskInherited(child: InicialScreen()),
     );
   }
 }
