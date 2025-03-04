@@ -16,6 +16,12 @@ class _TaskState extends State<Task> {
   int nivel = 1;
   int maestria = 0;
   bool levelMax = false;
+  bool assetOrNetwork() {
+    if (widget.foto.contains('http')) {
+      return false;
+    }
+    return true;
+  }
 
   List<Color> colors = [
     Color.fromARGB(255, 105, 105, 105),
@@ -60,7 +66,10 @@ class _TaskState extends State<Task> {
                       height: 100,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(4),
-                        child: Image.asset(widget.foto, fit: BoxFit.cover),
+                        child:
+                            assetOrNetwork()
+                                ? Image.asset(widget.foto, fit: BoxFit.cover)
+                                : Image.network(widget.foto, fit: BoxFit.cover),
                       ),
                     ),
 

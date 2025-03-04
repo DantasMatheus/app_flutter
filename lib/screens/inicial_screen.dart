@@ -18,7 +18,10 @@ class _InicialScreenState extends State<InicialScreen> {
         backgroundColor: Colors.blue,
         title: Text('Tarefas', style: TextStyle(color: Colors.white)),
       ),
-      body: ListView(children: TaskInherited.of(context)?.taskList ?? []),
+      body: ListView(
+        padding: EdgeInsets.only(top: 8, bottom: 70),
+        children: TaskInherited.of(context)?.taskList ?? [],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
