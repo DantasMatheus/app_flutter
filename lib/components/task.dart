@@ -6,16 +6,17 @@ class Task extends StatefulWidget {
   final String foto;
   final int dificuldade;
 
-  const Task(this.nome, this.foto, this.dificuldade, {super.key});
+  Task(this.nome, this.foto, this.dificuldade, {super.key});
+
+  int nivel = 1;
+  int maestria = 0;
+  bool levelMax = false;
 
   @override
   State<Task> createState() => _TaskState();
 }
 
 class _TaskState extends State<Task> {
-  int nivel = 1;
-  int maestria = 0;
-  bool levelMax = false;
   bool assetOrNetwork() {
     if (widget.foto.contains('http')) {
       return false;
@@ -42,7 +43,7 @@ class _TaskState extends State<Task> {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
-              color: colors[maestria],
+              color: colors[widget.maestria],
             ),
             height: 140,
           ),
@@ -95,13 +96,13 @@ class _TaskState extends State<Task> {
                       child: ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            nivel++;
-                            if ((nivel / widget.dificuldade) / 10 > 1) {
-                              if (maestria < colors.length - 1) {
-                                maestria++;
-                                nivel = 1;
+                            widget.nivel++;
+                            if ((widget.nivel / widget.dificuldade) / 10 > 1) {
+                              if (widget.maestria < colors.length - 1) {
+                                widget.maestria++;
+                                widget.nivel = 1;
                               } else {
-                                levelMax = true;
+                                widget.levelMax = true;
                                 _maestryMessage(context);
                               }
                             }
@@ -141,7 +142,7 @@ class _TaskState extends State<Task> {
                         color: Colors.white,
                         value:
                             widget.dificuldade > 0
-                                ? (nivel / widget.dificuldade) / 10
+                                ? (widget.nivel / widget.dificuldade) / 10
                                 : 1,
                       ),
                     ),
@@ -149,7 +150,9 @@ class _TaskState extends State<Task> {
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: Text(
-                      levelMax == true ? 'Maestria Completa' : 'Nível $nivel',
+                      widget.levelMax == true
+                          ? 'Maestria Completa'
+                          : 'Nível ${widget.nivel}',
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
