@@ -131,7 +131,11 @@ class _FormScreenState extends State<FormScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Salvando nova Tarefa')),
+                          const SnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            elevation: 150.0,
+                            content: Text('Salvando nova Tarefa'),
+                          ),
                         );
                         Navigator.pop(context);
                       }
