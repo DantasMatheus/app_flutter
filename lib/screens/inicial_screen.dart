@@ -23,7 +23,9 @@ class _InicialScreenState extends State<InicialScreen> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => FormScreen()),
+            MaterialPageRoute(
+              builder: (contextNew) => FormScreen(taskContext: context),
+            ),
           );
         },
         backgroundColor: Color.fromARGB(190, 40, 148, 252),
