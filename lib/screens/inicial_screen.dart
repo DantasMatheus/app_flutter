@@ -35,6 +35,7 @@ class _InicialScreenState extends State<InicialScreen> {
           ' Tarefas',
           style: TextStyle(color: Colors.white, fontSize: 20),
         ),
+        //Desafio Nivel global de tarefas
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(15),
           child: Padding(
