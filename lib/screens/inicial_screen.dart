@@ -1,3 +1,5 @@
+import 'package:app_flutter/components/task.dart';
+import 'package:app_flutter/data/task_dao.dart';
 import 'package:app_flutter/data/task_inherited.dart';
 import 'package:app_flutter/screens/form_screen.dart';
 import 'package:flutter/material.dart';
@@ -73,9 +75,60 @@ class _InicialScreenState extends State<InicialScreen> {
           ),
         ],
       ),
-      body: ListView(
+      body: Padding(
         padding: EdgeInsets.only(top: 8, bottom: 70),
-        children: TaskInherited.of(context)?.taskList ?? [],
+        child: FutureBuilder<List<Task>>(
+          future: TaskDao().findAll(),
+          builder: (context, snapshot) {
+            List<Task>? items = snapshot.data;
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                return Center(
+                  child: Column(
+                    children: [CircularProgressIndicator(), Text('Carregando')],
+                  ),
+                );
+
+              case ConnectionState.waiting:
+                return Center(
+                  child: Column(
+                    children: [CircularProgressIndicator(), Text('Carregando')],
+                  ),
+                );
+
+              case ConnectionState.active:
+                return Center(
+                  child: Column(
+                    children: [CircularProgressIndicator(), Text('Carregando')],
+                  ),
+                );
+              case ConnectionState.done:
+                if (snapshot.hasData && items != null) {
+                  if (items.isNotEmpty) {
+                    return ListView.builder(
+                      itemCount: items.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final Task tarefa = items[index];
+                        return tarefa;
+                      },
+                    );
+                  }
+                  return Center(
+                    child: Column(
+                      children: [
+                        Icon(Icons.error_outline, size: 128),
+                        Text(
+                          'Não há nenhuma tarefa',
+                          style: TextStyle(fontSize: 32),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+                return Text('Erro ao carregar Tarefas');
+            }
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -84,7 +137,7 @@ class _InicialScreenState extends State<InicialScreen> {
             MaterialPageRoute(
               builder: (contextNew) => FormScreen(taskContext: context),
             ),
-          );
+          ).then((value) => setState(() {}));
         },
         backgroundColor: Color.fromARGB(190, 40, 148, 252),
         child: Icon(Icons.add_sharp, color: Colors.white),

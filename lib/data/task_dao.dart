@@ -9,7 +9,7 @@ class TaskDao {
       '$_difficulty INTEGER, '
       '$_image TEXT, '
       '$_level TEXT, '
-      '$_mastery TEXT,)';
+      '$_mastery TEXT)';
 
   static const String _tablename = 'taskTable';
   static const String _name = 'name';
@@ -47,8 +47,7 @@ class TaskDao {
   Future<List<Task>> findAll() async {
     final Database database = await getDatabase();
     final List<Map<String, dynamic>> result = await database.query(_tablename);
-    List<Task> tasks = toList(result);
-    return tasks;
+    return toList(result);
   }
 
   List<Task> toList(List<Map<String, dynamic>> mapaDeTarefas) {
