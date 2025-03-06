@@ -5,11 +5,18 @@ class Task extends StatefulWidget {
   final String nome;
   final String foto;
   final int dificuldade;
+  int nivel;
+  int maestria;
 
-  Task(this.nome, this.foto, this.dificuldade, {super.key});
+  Task(
+    this.nome,
+    this.foto,
+    this.dificuldade, {
+    super.key,
+    this.maestria = 0,
+    this.nivel = 1,
+  });
 
-  int nivel = 1;
-  int maestria = 0;
   bool levelMax = false;
 
   @override
