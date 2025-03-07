@@ -146,7 +146,7 @@ class _InicialScreenState extends State<InicialScreen> {
                           },
                           background: Container(
                             color: Colors.red,
-                            alignment: Alignment.center,
+                            alignment: Alignment.centerLeft,
                             padding: const EdgeInsets.symmetric(
                               horizontal: 20.0,
                             ),
