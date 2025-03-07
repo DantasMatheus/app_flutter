@@ -1,4 +1,5 @@
 import 'package:app_flutter/components/difficulty.dart';
+import 'package:app_flutter/data/task_dao.dart';
 import 'package:flutter/material.dart';
 
 class Task extends StatefulWidget {
@@ -113,6 +114,7 @@ class _TaskState extends State<Task> {
                                 _maestryMessage(context);
                               }
                             }
+                            TaskDao().save(widget);
                           });
                         },
                         style: ElevatedButton.styleFrom(
