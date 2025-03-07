@@ -109,7 +109,55 @@ class _InicialScreenState extends State<InicialScreen> {
                       itemCount: items.length,
                       itemBuilder: (BuildContext context, int index) {
                         final Task tarefa = items[index];
-                        return tarefa;
+                        return Dismissible(
+                          key: ValueKey(tarefa.nome),
+                          onDismissed: (direction) async {},
+                          confirmDismiss: (DismissDirection direction) async {
+                            if (direction == DismissDirection.startToEnd) {
+                              return await showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Confirmar Exclusão'),
+                                    content: const Text(
+                                      'Tem certeza de que deseja excluir essa tarefa?',
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed:
+                                            () => Navigator.of(
+                                              context,
+                                            ).pop(false),
+                                        child: const Text("Cancelar"),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          TaskDao().delete(tarefa.nome);
+                                          Navigator.of(context).pop(true);
+                                        },
+                                        child: const Text("Excluir"),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+                            return false;
+                          },
+                          background: Container(
+                            color: Colors.red,
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20.0,
+                            ),
+                            child: const Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                              size: 40,
+                            ),
+                          ),
+                          child: tarefa,
+                        );
                       },
                     );
                   }
