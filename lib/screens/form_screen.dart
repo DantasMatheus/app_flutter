@@ -17,6 +17,7 @@ class _FormScreenState extends State<FormScreen> {
   TextEditingController imageController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  int? selectedDifficulty;
 
   bool valueValidator(String? value) {
     if (value != null && value.isEmpty) {
@@ -81,21 +82,32 @@ class _FormScreenState extends State<FormScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (difficultyValidator(value)) {
-                          return 'Insira uma dificuldade entre 1 e 5 da tarefa';
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.number,
-                      controller: difficultyController,
-                      textAlign: TextAlign.left,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Dificuldade',
-                        fillColor: Colors.white70,
-                        filled: true,
+                    child: SizedBox(
+                      child: DropdownButtonFormField<int>(
+                        value: selectedDifficulty,
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Insira uma dificuldade entre 1 e 5 da tarefa';
+                          }
+                          return null;
+                        },
+                        onChanged: (newValue) {
+                          setState(() {
+                            selectedDifficulty = newValue;
+                          });
+                        },
+                        items: List.generate(5, (index) {
+                          return DropdownMenuItem(
+                            value: index + 1,
+                            child: Text('${index + 1}'),
+                          );
+                        }),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Dificuldade',
+                          fillColor: Colors.white70,
+                          filled: true,
+                        ),
                       ),
                     ),
                   ),
@@ -152,7 +164,7 @@ class _FormScreenState extends State<FormScreen> {
                           Task(
                             nameController.text,
                             imageController.text,
-                            int.parse(difficultyController.text),
+                            selectedDifficulty!,
                           ),
                         );
 

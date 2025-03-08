@@ -27,6 +27,10 @@ class _InicialScreenState extends State<InicialScreen> {
     });
   }
 
+  Future<void> _reloadTask() async {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,107 +79,125 @@ class _InicialScreenState extends State<InicialScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.only(top: 8, bottom: 70),
-        child: FutureBuilder<List<Task>>(
-          future: TaskDao().findAll(),
-          builder: (context, snapshot) {
-            List<Task>? items = snapshot.data;
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-                return Center(
-                  child: Column(
-                    children: [CircularProgressIndicator(), Text('Carregando')],
-                  ),
-                );
-
-              case ConnectionState.waiting:
-                return Center(
-                  child: Column(
-                    children: [CircularProgressIndicator(), Text('Carregando')],
-                  ),
-                );
-
-              case ConnectionState.active:
-                return Center(
-                  child: Column(
-                    children: [CircularProgressIndicator(), Text('Carregando')],
-                  ),
-                );
-              case ConnectionState.done:
-                if (snapshot.hasData && items != null) {
-                  if (items.isNotEmpty) {
-                    return ListView.builder(
-                      itemCount: items.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final Task tarefa = items[index];
-                        return Dismissible(
-                          key: ValueKey(tarefa.nome),
-                          onDismissed: (direction) async {},
-                          confirmDismiss: (DismissDirection direction) async {
-                            if (direction == DismissDirection.startToEnd) {
-                              return await showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text('Confirmar Exclusão'),
-                                    content: const Text(
-                                      'Tem certeza de que deseja excluir essa tarefa?',
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed:
-                                            () => Navigator.of(
-                                              context,
-                                            ).pop(false),
-                                        child: const Text("Cancelar"),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          TaskDao().delete(tarefa.nome);
-                                          Navigator.of(context).pop(true);
-                                        },
-                                        child: const Text("Excluir"),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            }
-                            return false;
-                          },
-                          background: Container(
-                            color: Colors.red,
-                            alignment: Alignment.centerLeft,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20.0,
-                            ),
-                            child: const Icon(
-                              Icons.delete,
-                              color: Colors.white,
-                              size: 40,
-                            ),
-                          ),
-                          child: tarefa,
-                        );
-                      },
-                    );
-                  }
+      body: RefreshIndicator(
+        backgroundColor: Colors.transparent,
+        triggerMode: RefreshIndicatorTriggerMode.onEdge,
+        edgeOffset: 10,
+        displacement: 10,
+        onRefresh: _reloadTask,
+        child: Padding(
+          padding: EdgeInsets.only(top: 8, bottom: 70),
+          child: FutureBuilder<List<Task>>(
+            future: TaskDao().findAll(),
+            builder: (context, snapshot) {
+              List<Task>? items = snapshot.data;
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
                   return Center(
                     child: Column(
                       children: [
-                        Icon(Icons.error_outline, size: 128),
-                        Text(
-                          'Não há nenhuma tarefa',
-                          style: TextStyle(fontSize: 32),
-                        ),
+                        CircularProgressIndicator(),
+                        Text('Carregando'),
                       ],
                     ),
                   );
-                }
-                return Text('Erro ao carregar Tarefas');
-            }
-          },
+
+                case ConnectionState.waiting:
+                  return Center(
+                    child: Column(
+                      children: [
+                        CircularProgressIndicator(),
+                        Text('Carregando'),
+                      ],
+                    ),
+                  );
+
+                case ConnectionState.active:
+                  return Center(
+                    child: Column(
+                      children: [
+                        CircularProgressIndicator(),
+                        Text('Carregando'),
+                      ],
+                    ),
+                  );
+                case ConnectionState.done:
+                  if (snapshot.hasData && items != null) {
+                    if (items.isNotEmpty) {
+                      return ListView.builder(
+                        itemCount: items.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final Task tarefa = items[index];
+                          return Dismissible(
+                            key: ValueKey(tarefa.nome),
+                            onDismissed: (direction) async {},
+                            confirmDismiss: (DismissDirection direction) async {
+                              if (direction == DismissDirection.startToEnd) {
+                                return await showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Confirmar Exclusão'),
+                                      content: const Text(
+                                        'Tem certeza de que deseja excluir essa tarefa?',
+                                      ),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed:
+                                              () => Navigator.of(
+                                                context,
+                                              ).pop(false),
+                                          child: const Text("Cancelar"),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            TaskDao().delete(tarefa.nome);
+                                            Navigator.of(context).pop(true);
+                                          },
+                                          child: const Text("Excluir"),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                              return false;
+                            },
+                            background: Container(
+                              color: Colors.red,
+                              alignment: Alignment.centerLeft,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0,
+                              ),
+                              child: const Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                                size: 40,
+                              ),
+                            ),
+                            child: tarefa,
+                          );
+                        },
+                      );
+                    }
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(Icons.error_outline, size: 128),
+                          Text(
+                            'Não há nenhuma tarefa',
+                            style: TextStyle(fontSize: 32),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                  return Text('Erro ao carregar Tarefas');
+              }
+            },
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
