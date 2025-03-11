@@ -1,3 +1,4 @@
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:app_flutter/components/task.dart';
 import 'package:app_flutter/data/task_dao.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +14,12 @@ class FormScreen extends StatefulWidget {
 
 class _FormScreenState extends State<FormScreen> {
   TextEditingController nameController = TextEditingController();
-  TextEditingController difficultyController = TextEditingController();
   TextEditingController imageController = TextEditingController();
+  SingleSelectController<String?> difficultyController =
+      SingleSelectController<String?>(null);
 
   final _formKey = GlobalKey<FormState>();
-  int? selectedDifficulty;
+  List<String> difficulties = ['1', '2', '3', '4', '5'];
 
   bool valueValidator(String? value) {
     if (value != null && value.isEmpty) {
@@ -82,33 +84,20 @@ class _FormScreenState extends State<FormScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      child: DropdownButtonFormField<int>(
-                        value: selectedDifficulty,
-                        validator: (value) {
-                          if (value == null) {
-                            return 'Insira uma dificuldade entre 1 e 5 da tarefa';
-                          }
-                          return null;
-                        },
-                        onChanged: (newValue) {
-                          setState(() {
-                            selectedDifficulty = newValue;
-                          });
-                        },
-                        items: List.generate(5, (index) {
-                          return DropdownMenuItem(
-                            value: index + 1,
-                            child: Text('${index + 1}'),
-                          );
-                        }),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Dificuldade',
-                          fillColor: Colors.white70,
-                          filled: true,
-                        ),
+                    child: CustomDropdown<String>(
+                      hintText: 'Escolha a Dificuldade',
+                      items: difficulties,
+                      controller: difficultyController,
+                      decoration: CustomDropdownDecoration(
+                        closedFillColor: Colors.white70,
+                        closedBorder: Border.all(color: Colors.black),
+                        expandedBorder: Border.all(color: Colors.blue),
                       ),
+                      onChanged: (value) {
+                        setState(() {
+                          difficultyController.value = value;
+                        });
+                      },
                     ),
                   ),
                   Padding(
@@ -164,7 +153,7 @@ class _FormScreenState extends State<FormScreen> {
                           Task(
                             nameController.text,
                             imageController.text,
-                            selectedDifficulty!,
+                            int.parse(difficultyController.value ?? '1'),
                           ),
                         );
 
