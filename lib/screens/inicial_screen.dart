@@ -42,43 +42,44 @@ class _InicialScreenState extends State<InicialScreen> {
           style: TextStyle(color: Colors.white, fontSize: 20),
         ),
         //Desafio Nivel global de tarefas
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(15),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 180,
-                  child: LinearProgressIndicator(
-                    backgroundColor: Colors.grey,
-                    color: Colors.white,
-                    value: progressBarValue,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Text(
-                    'Level Global: ${globalLevel.toStringAsFixed(2)}',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 50.0),
-            child: IconButton(
-              icon: Icon(Icons.loop),
-              onPressed: () {
-                refreshLevelPage();
-              },
-            ),
-          ),
-        ],
       ),
+      //   bottom: PreferredSize(
+      //     preferredSize: Size.fromHeight(15),
+      //     child: Padding(
+      //       padding: EdgeInsets.symmetric(horizontal: 30),
+      //       child: Row(
+      //         children: [
+      //           SizedBox(
+      //             width: 180,
+      //             child: LinearProgressIndicator(
+      //               backgroundColor: Colors.grey,
+      //               color: Colors.white,
+      //               value: progressBarValue,
+      //             ),
+      //           ),
+      //           Padding(
+      //             padding: const EdgeInsets.all(8),
+      //             child: Text(
+      //               'Level Global: ${globalLevel.toStringAsFixed(2)}',
+      //               style: TextStyle(color: Colors.white, fontSize: 16),
+      //             ),
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      //   actions: [
+      //     Padding(
+      //       padding: const EdgeInsets.only(right: 50.0),
+      //       child: IconButton(
+      //         icon: Icon(Icons.loop),
+      //         onPressed: () {
+      //           refreshLevelPage();
+      //         },
+      //       ),
+      //     ),
+      //   ],
+      // ),
       body: RefreshIndicator(
         backgroundColor: Colors.transparent,
         triggerMode: RefreshIndicatorTriggerMode.onEdge,
