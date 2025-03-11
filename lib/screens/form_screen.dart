@@ -89,6 +89,8 @@ class _FormScreenState extends State<FormScreen> {
                       items: difficulties,
                       controller: difficultyController,
                       decoration: CustomDropdownDecoration(
+                        closedBorderRadius: BorderRadius.circular(5),
+                        expandedBorderRadius: BorderRadius.circular(5),
                         closedFillColor: Colors.white70,
                         closedBorder: Border.all(color: Colors.black),
                         expandedBorder: Border.all(color: Colors.blue),
