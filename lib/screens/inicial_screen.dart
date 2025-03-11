@@ -1,6 +1,5 @@
 import 'package:app_flutter/components/task.dart';
 import 'package:app_flutter/data/task_dao.dart';
-import 'package:app_flutter/data/task_inherited.dart';
 import 'package:app_flutter/screens/form_screen.dart';
 import 'package:flutter/material.dart';
 
