@@ -15,17 +15,17 @@ class _InicialScreenState extends State<InicialScreen> {
   double globalLevel = 0;
   double progressBarValue = 0;
 
-  void refreshLevelPage() {
-    setState(() {
-      globalLevel = 0; //para resetar os valores armazenados em cache
-      progressBarValue = 0; //para resetar os valores armazenados em cache
-      for (var task in TaskInherited.of(context)?.taskList ?? []) {
-        final taskLevel = (task.nivel * task.dificuldade) / 10;
-        globalLevel += taskLevel;
-      }
-      progressBarValue = globalLevel / 100;
-    });
-  }
+  // void refreshLevelPage() {
+  //   setState(() {
+  //     globalLevel = 0; //para resetar os valores armazenados em cache
+  //     progressBarValue = 0; //para resetar os valores armazenados em cache
+  //     for (var task in TaskInherited.of(context)?.taskList ?? []) {
+  //       final taskLevel = (task.nivel * task.dificuldade) / 10;
+  //       globalLevel += taskLevel;
+  //     }
+  //     progressBarValue = globalLevel / 100;
+  //   });
+  // }
 
   Future<void> _reloadTask() async {
     setState(() {});
