@@ -36,8 +36,7 @@ Welcome to the **app_flutter** repository! This is a mobile application develope
 
 ## How to Use
 1. **Add a Task**: Click on the "Add Task" button and fill in the task details.
-2. **Edit a Task**: Click on a task to edit its details and update its progress.
-3. **Track Levels and Mastery**: View the level and mastery progress for each task on the task details page.
+2. **Track Levels and Mastery**: View the level and mastery progress for each task on the task details page.
 
 ## Contribution
 We welcome contributions! Feel free to fork this repository and submit a pull request.
